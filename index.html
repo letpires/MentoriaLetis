@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mentoria — Letis Pires</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --yellow:     #f5e6a3;
+    --yellow-mid: #e8cc5a;
+    --yellow-dark:#b89a1a;
+    --brown:      #7a4f2e;
+    --brown-light:#f2e8de;
+    --brown-mid:  #c49a72;
+    --royal:      #3a5fa8;
+    --royal-light:#d6e4f7;
+    --sage:       #a8c5b8;
+    --sage-light: #e8f3ee;
+    --cream:      #faf6ef;
+    --cream-mid:  #f0e9dc;
+    --ink:        #2a1f14;
+    --muted:      #7a6a58;
+    --border:     #d4c4b0;
+    --pixel:      #2a1f14;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .px { font-family: 'Press Start 2P', monospace; }
+
+  .divider { height: 5px; background: linear-gradient(90deg, var(--yellow-mid) 0%, var(--yellow-mid) 20%, var(--brown-mid) 20%, var(--brown-mid) 40%, var(--royal) 40%, var(--royal) 60%, var(--sage) 60%, var(--sage) 80%, var(--yellow-mid) 80%, var(--yellow-mid) 100%); }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; background: var(--cream); border-bottom: 3px solid var(--pixel); }
+  .nav-logo { font-family: 'Press Start 2P', monospace; font-size: 11px; color: var(--ink); line-height: 1.5; }
+  .nav-logo span { color: var(--royal); }
+  .nav-cta { background: var(--royal); color: #fff; padding: 10px 18px; font-family: 'Press Start 2P', monospace; font-size: 8px; line-height: 1.6; text-decoration: none; border: 2px solid var(--pixel); box-shadow: 3px 3px 0 var(--pixel); transition: transform .1s, box-shadow .1s; display: inline-block; }
+  .nav-cta:hover { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--pixel); }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 120px 40px 60px; max-width: 980px; margin: 0 auto; position: relative; }
+  .hero::after { content: ''; position: absolute; top: 100px; right: 0; width: 280px; height: 280px; background-image: radial-gradient(circle, var(--border) 1.5px, transparent 1.5px); background-size: 20px 20px; opacity: 0.7; z-index: 0; pointer-events: none; }
+  .hero-inner { position: relative; z-index: 1; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--yellow); color: var(--brown); font-family: 'Press Start 2P', monospace; font-size: 7px; line-height: 1.8; padding: 8px 14px; margin-bottom: 32px; border: 2px solid var(--brown); box-shadow: 3px 3px 0 var(--brown); }
+  .hero-badge::before { content: '▶'; }
+  .hero h1 { font-family: 'Press Start 2P', monospace; font-size: clamp(16px, 2.8vw, 30px); line-height: 1.7; color: var(--ink); margin-bottom: 28px; }
+  .hero h1 .c-royal { color: var(--royal); }
+  .hero h1 .c-brown { color: var(--brown); }
+  .hero-sub { font-size: 17px; color: var(--muted); max-width: 520px; margin-bottom: 32px; line-height: 1.85; font-weight: 300; }
+  .hero-social { display: flex; gap: 14px; margin-bottom: 40px; }
+  .hero-social a { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 2px solid var(--border); color: var(--muted); text-decoration: none; font-size: 15px; transition: border-color .15s, color .15s; }
+  .hero-social a:hover { border-color: var(--royal); color: var(--royal); }
+  .hero-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 56px; }
+  .btn-royal { background: var(--royal); color: #fff; padding: 13px 22px; font-family: 'Press Start 2P', monospace; font-size: 8px; line-height: 1.7; text-decoration: none; display: inline-block; border: 2px solid var(--pixel); box-shadow: 4px 4px 0 var(--pixel); transition: transform .1s, box-shadow .1s; }
+  .btn-royal:hover { transform: translate(3px,3px); box-shadow: 1px 1px 0 var(--pixel); }
+  .btn-outline { background: transparent; color: var(--ink); padding: 13px 20px; font-family: 'Press Start 2P', monospace; font-size: 8px; line-height: 1.7; text-decoration: none; display: inline-block; border: 2px solid var(--pixel); box-shadow: 3px 3px 0 var(--pixel); transition: transform .1s, box-shadow .1s; }
+  .btn-outline:hover { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--pixel); }
+  .hero-stats { display: flex; border: 3px solid var(--pixel); box-shadow: 5px 5px 0 var(--pixel); background: #fff; max-width: 700px; flex-wrap: wrap; }
+  .stat { flex: 1; min-width: 150px; padding: 20px 24px; border-right: 2px solid var(--pixel); }
+  .stat:last-child { border-right: none; }
+  .stat-num { font-family: 'Press Start 2P', monospace; font-size: 18px; color: var(--royal); margin-bottom: 6px; display: block; line-height: 1.3; }
+  .stat-label { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  /* SECTIONS */
+  section { padding: 90px 40px; }
+  .container { max-width: 960px; margin: 0 auto; }
+  .section-tag { font-family: 'Press Start 2P', monospace; font-size: 8px; color: var(--brown); margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+  .section-tag::before { content: '■'; color: var(--yellow-mid); }
+  .section-title { font-family: 'Press Start 2P', monospace; font-size: clamp(13px, 2vw, 20px); line-height: 1.8; color: var(--ink); margin-bottom: 44px; }
+
+  /* SOBRE */
+  .sobre { background: var(--brown-light); border-top: 3px solid var(--pixel); border-bottom: 3px solid var(--pixel); }
+  .sobre-grid { display: grid; grid-template-columns: 280px 1fr; gap: 60px; align-items: start; }
+  .sobre-foto-wrap { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .sobre-foto { width: 200px; height: 200px; border-radius: 50%; background: var(--cream-mid); border: 3px solid var(--pixel); box-shadow: 5px 5px 0 var(--pixel); display: flex; align-items: center; justify-content: center; font-size: 64px; overflow: hidden; }
+  .sobre-foto img { width: 100%; height: 100%; object-fit: cover; }
+  .sobre-nome { font-family: 'Press Start 2P', monospace; font-size: 10px; color: var(--ink); text-align: center; line-height: 1.7; }
+  .sobre-nome span { color: var(--royal); display: block; font-size: 8px; margin-top: 4px; }
+  .sobre-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; justify-content: center; }
+  .sobre-tag { font-size: 11px; color: var(--brown); background: var(--yellow); border: 1px solid var(--brown-mid); padding: 4px 10px; border-radius: 2px; }
+  .sobre-right p { color: var(--muted); font-size: 15px; line-height: 1.9; margin-bottom: 16px; }
+  .sobre-right p strong { color: var(--ink); font-weight: 500; }
+  .sobre-cards { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
+  .sobre-card { background: var(--cream); border: 2px solid var(--pixel); box-shadow: 3px 3px 0 var(--pixel); padding: 14px 18px; }
+  .sobre-card-title { font-family: 'Press Start 2P', monospace; font-size: 7px; color: var(--royal); margin-bottom: 6px; line-height: 1.8; }
+  .sobre-card-title::before { content: '▸ '; color: var(--yellow-mid); }
+  .sobre-card-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* TRABALHO */
+  .trabalho-bg { background: var(--ink); border-top: 3px solid #000; border-bottom: 3px solid #000; }
+  .trabalho-bg .section-tag { color: var(--yellow-mid); }
+  .trabalho-bg .section-tag::before { color: var(--royal); }
+  .trabalho-bg .section-title { color: var(--cream); }
+  .trabalho-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .tcard { background: #1e1912; border: 2px solid #3a3020; box-shadow: 3px 3px 0 #000; padding: 24px; display: flex; flex-direction: column; transition: transform .1s, box-shadow .1s; }
+  .tcard:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 #000; }
+  .tcard.wide { grid-column: span 2; }
+  .tcard-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+  .tcard-company { font-family: 'Press Start 2P', monospace; font-size: 7px; color: #6a5a40; line-height: 1.6; }
+  .tcard-icon { font-size: 20px; }
+  .tcard-metric { font-family: 'Press Start 2P', monospace; font-size: 15px; color: var(--yellow-mid); margin-bottom: 14px; line-height: 1.6; }
+  .tcard-desc { font-size: 13px; color: #7a6a52; line-height: 1.75; margin-bottom: 16px; flex: 1; }
+  .tcard-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tcard-tag { font-family: 'Press Start 2P', monospace; font-size: 7px; color: #5a4a32; border: 1px solid #3a2e1e; padding: 4px 8px; line-height: 1.4; }
+
+  /* COMO FUNCIONA */
+  .steps { display: flex; flex-direction: column; }
+  .step { display: grid; grid-template-columns: 80px 1fr; gap: 24px; padding: 28px 0; border-bottom: 2px solid var(--border); align-items: start; }
+  .step:last-child { border-bottom: none; }
+  .step-num { font-family: 'Press Start 2P', monospace; font-size: 9px; background: var(--yellow); color: var(--brown); border: 2px solid var(--brown); box-shadow: 2px 2px 0 var(--brown); padding: 8px 4px; text-align: center; line-height: 1.6; }
+  .step-title { font-size: 17px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
+  .step-desc { font-size: 14px; color: var(--muted); line-height: 1.8; }
+
+  /* PLANOS */
+  .planos-bg { background: var(--royal-light); border-top: 3px solid var(--pixel); border-bottom: 3px solid var(--pixel); }
+  .sprint-card { background: var(--cream); border: 2px solid var(--pixel); box-shadow: 5px 5px 0 var(--pixel); padding: 32px; }
+  .sprint-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+  .sprint-title { font-family: 'Press Start 2P', monospace; font-size: 9px; color: var(--brown); line-height: 1.6; }
+  .sprint-vagas { background: var(--yellow); color: var(--brown); font-family: 'Press Start 2P', monospace; font-size: 7px; padding: 7px 14px; border: 2px solid var(--brown); box-shadow: 2px 2px 0 var(--brown); line-height: 1.6; display: flex; align-items: center; gap: 6px; }
+  .sprint-vagas::before { content: '●'; animation: blink 1s step-end infinite; }
+  .sprint-precos { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 28px; }
+  .sprint-preco-card { background: var(--brown-light); border: 2px solid var(--border); padding: 20px 22px; cursor: pointer; transition: border-color .15s, box-shadow .15s; }
+  .sprint-preco-card.ativo { border-color: var(--royal); box-shadow: 3px 3px 0 var(--royal); background: var(--royal-light); }
+  .sprint-preco-card:hover { border-color: var(--royal); }
+  .sprint-preco-label { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+  .sprint-preco-val { font-family: 'Press Start 2P', monospace; font-size: 20px; color: var(--ink); line-height: 1.2; }
+  .sprint-preco-val span { font-size: 11px; color: var(--muted); font-family: 'DM Sans', sans-serif; font-weight: 400; }
+  .sprint-preco-eco { font-size: 11px; color: var(--royal); margin-top: 6px; font-weight: 500; }
+  .sprint-items { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; border-top: 2px solid var(--border); padding-top: 24px; }
+  .sprint-items li { font-size: 14px; color: var(--muted); display: flex; gap: 12px; align-items: flex-start; line-height: 1.5; }
+  .sprint-items li::before { content: '✓'; color: var(--royal); font-size: 15px; flex-shrink: 0; font-weight: 700; }
+  .sprint-btn { display: block; text-align: center; padding: 14px; font-family: 'Press Start 2P', monospace; font-size: 9px; line-height: 1.6; text-decoration: none; transition: transform .1s, box-shadow .1s; border: 2px solid var(--pixel); background: var(--royal); color: #fff; box-shadow: 4px 4px 0 var(--pixel); }
+  .sprint-btn:hover { transform: translate(3px,3px); box-shadow: 1px 1px 0 var(--pixel); }
+
+  /* MATERIAIS */
+  .materiais-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .material { background: var(--cream-mid); border: 2px solid var(--pixel); box-shadow: 3px 3px 0 var(--pixel); padding: 20px; }
+  .material-tag { font-family: 'Press Start 2P', monospace; font-size: 7px; color: var(--brown); background: var(--yellow); border: 1px solid var(--brown); padding: 5px 8px; display: inline-block; margin-bottom: 14px; line-height: 1.4; }
+  .material-title { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
+  .material-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* DEPOIMENTOS WHATSAPP */
+  .depo-bg { background: var(--sage-light); border-top: 3px solid var(--pixel); border-bottom: 3px solid var(--pixel); }
+  .depo-bg .section-tag { color: var(--brown); }
+  .depo-bg .section-title { color: var(--ink); }
+  .depo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  /* WhatsApp card */
+  .wa-card { background: #e5ddd5; border: 2px solid var(--pixel); box-shadow: 4px 4px 0 var(--pixel); border-radius: 4px; overflow: hidden; }
+  .wa-header { background: #075e54; padding: 10px 16px; display: flex; align-items: center; gap: 10px; }
+  .wa-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--royal-light); display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+  .wa-contact { font-size: 13px; font-weight: 500; color: #fff; }
+  .wa-status { font-size: 11px; color: #a8d5af; }
+  .wa-body { padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+  .wa-bubble { background: #fff; border-radius: 0 8px 8px 8px; padding: 10px 14px; max-width: 88%; box-shadow: 0 1px 2px rgba(0,0,0,.12); position: relative; }
+  .wa-bubble p { font-size: 13px; color: #2a1f14; line-height: 1.6; }
+  .wa-time { font-size: 10px; color: #a0a0a0; text-align: right; margin-top: 4px; }
+
+  /* FAQ */
+  .faq-list { display: flex; flex-direction: column; gap: 0; }
+  .faq-item { border-bottom: 2px solid var(--border); }
+  .faq-item:first-child { border-top: 2px solid var(--border); }
+  .faq-q { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 20px 0; cursor: pointer; }
+  .faq-q span { font-size: 15px; font-weight: 500; color: var(--ink); line-height: 1.5; }
+  .faq-arrow { font-family: 'Press Start 2P', monospace; font-size: 8px; color: var(--royal); flex-shrink: 0; transition: transform .2s; }
+  .faq-item.open .faq-arrow { transform: rotate(180deg); }
+  .faq-a { font-size: 14px; color: var(--muted); line-height: 1.8; padding-bottom: 20px; display: none; }
+  .faq-item.open .faq-a { display: block; }
+
+  /* CTA */
+  .cta-final { text-align: center; }
+  .cta-final > .container > p { color: var(--muted); max-width: 440px; margin: 0 auto 36px; font-size: 16px; }
+  .vagas { display: inline-flex; align-items: center; gap: 8px; background: var(--yellow); border: 2px solid var(--brown); color: var(--brown); font-family: 'Press Start 2P', monospace; font-size: 7px; padding: 8px 14px; margin-bottom: 24px; line-height: 1.6; box-shadow: 2px 2px 0 var(--brown); }
+  .vagas-dot { animation: blink 1s step-end infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  .form-wrap { max-width: 480px; margin: 0 auto; background: #fff; border: 3px solid var(--pixel); box-shadow: 6px 6px 0 var(--pixel); padding: 32px; }
+  .form-group { margin-bottom: 12px; }
+  .form-group input, .form-group textarea { width: 100%; background: var(--cream); border: 2px solid var(--border); padding: 12px 14px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--ink); outline: none; transition: border-color .15s; resize: none; border-radius: 0; }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: #b0a898; }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--royal); }
+  .form-submit { width: 100%; padding: 14px; background: var(--royal); color: #fff; border: 2px solid var(--pixel); box-shadow: 4px 4px 0 var(--pixel); font-family: 'Press Start 2P', monospace; font-size: 9px; line-height: 1.6; cursor: pointer; transition: transform .1s, box-shadow .1s; margin-top: 6px; }
+  .form-submit:hover { transform: translate(3px,3px); box-shadow: 1px 1px 0 var(--pixel); }
+  .form-note { font-size: 12px; color: var(--muted); text-align: center; margin-top: 14px; }
+
+  /* FOOTER */
+  footer { padding: 28px 40px; border-top: 3px solid var(--pixel); display: flex; justify-content: space-between; align-items: center; background: var(--cream); flex-wrap: wrap; gap: 16px; }
+  .footer-logo { font-family: 'Press Start 2P', monospace; font-size: 10px; color: var(--ink); line-height: 1.6; }
+  .footer-logo span { color: var(--royal); }
+  .footer-social { display: flex; gap: 12px; }
+  .footer-social a { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border: 2px solid var(--border); color: var(--muted); text-decoration: none; font-size: 14px; transition: border-color .15s, color .15s; }
+  .footer-social a:hover { border-color: var(--royal); color: var(--royal); }
+  .footer-note { font-size: 12px; color: var(--muted); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-badge  { animation: fadeUp .5s .0s ease both; }
+  .hero h1     { animation: fadeUp .5s .08s ease both; }
+  .hero-sub    { animation: fadeUp .5s .16s ease both; }
+  .hero-social { animation: fadeUp .5s .20s ease both; }
+  .hero-actions{ animation: fadeUp .5s .24s ease both; }
+  .hero-stats  { animation: fadeUp .5s .32s ease both; }
+
+  @media (max-width: 720px) {
+    nav { padding: 14px 20px; }
+    section { padding: 60px 20px; }
+    .hero { padding: 100px 20px 60px; }
+    .sobre-grid { grid-template-columns: 1fr; }
+    .sobre-foto-wrap { flex-direction: row; align-items: center; gap: 20px; }
+    .planos-grid, .trabalho-grid, .depo-grid { grid-template-columns: 1fr; }
+    .tcard.wide { grid-column: span 1; }
+    .materiais-grid { grid-template-columns: 1fr 1fr; }
+    footer { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .hero-stats { flex-direction: column; }
+    .stat { border-right: none; border-bottom: 2px solid var(--pixel); }
+    .stat:last-child { border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="divider"></div>
+
+<nav>
+  <div class="nav-logo">Letis<span>Pires</span></div>
+  <a href="#agendar" class="nav-cta">▶ diagnóstico grátis</a>
+</nav>
+
+<!-- HERO -->
+<section style="padding:0">
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">mentoria em dados & tech</div>
+      <h1>você define<br>o <span class="c-royal">objetivo.</span><br>eu ando ao<br><span class="c-brown">lado.</span></h1>
+      <p class="hero-sub">Para quem quer entrar em dados ou crescer na área tech — com um caminho claro, projetos reais e alguém do seu lado na jornada.</p>
+      <div class="hero-social">
+        <a href="https://instagram.com/letispires" target="_blank" title="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://linkedin.com/in/letispires" target="_blank" title="LinkedIn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="https://youtube.com/@letispires" target="_blank" title="YouTube">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://tiktok.com/@letispires" target="_blank" title="TikTok">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.17 8.17 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
+        </a>
+      </div>
+      <div class="hero-actions">
+        <a href="#agendar" class="btn-royal">▶ agendar diagnóstico</a>
+        <a href="#como" class="btn-outline">como funciona</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TRABALHO -->
+<section class="trabalho-bg">
+  <div class="container">
+    <div class="section-tag">trabalho</div>
+    <h2 class="section-title">resultados,<br>não só projetos.</h2>
+    <div class="trabalho-grid">
+      <div class="tcard">
+        <div class="tcard-top"><span class="tcard-company">ALURA</span><span class="tcard-icon">🎓</span></div>
+        <div class="tcard-metric">800k+ alunos</div>
+        <p class="tcard-desc">Cursos de Cloud Fundamentals e AWS para Data Science. Criador do "7 Days of Code: Machine Learning" com Python, Pandas e Scikit-learn.</p>
+        <div class="tcard-tags"><span class="tcard-tag">GCP</span><span class="tcard-tag">AWS</span><span class="tcard-tag">ML</span></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-top"><span class="tcard-company">SUZANO</span><span class="tcard-icon">🌍</span></div>
+        <div class="tcard-metric">300+ profissionais</div>
+        <p class="tcard-desc">Treinamentos globais em dados para equipes no Brasil, EUA, China e Áustria. Módulo de Market Trends com ML e IA aplicada.</p>
+        <div class="tcard-tags"><span class="tcard-tag">Treinamento</span><span class="tcard-tag">4 países</span></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-top"><span class="tcard-company">BAND JORNALISMO</span><span class="tcard-icon">📺</span></div>
+        <div class="tcard-metric">6M+ inscritos</div>
+        <p class="tcard-desc">Projeto de ML analisando performance de vídeos e redes sociais para apoiar estratégia de conteúdo de um dos maiores canais jornalísticos do Brasil.</p>
+        <div class="tcard-tags"><span class="tcard-tag">ML</span><span class="tcard-tag">Mídia</span></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-top"><span class="tcard-company">POMODOKI</span><span class="tcard-icon">🏆</span></div>
+        <div class="tcard-metric">5× campeã</div>
+        <p class="tcard-desc">MVP em 36h no ETHGlobal Prague. Founders Forge Accelerator — Demo Day Dubai. Reconhecida no ETHGlobal Cannes e Buenos Aires.</p>
+        <div class="tcard-tags"><span class="tcard-tag">Startup</span><span class="tcard-tag">Dubai</span></div>
+      </div>
+      <div class="tcard wide">
+        <div class="tcard-top"><span class="tcard-company">PROJETOS DE DADOS — MÚLTIPLOS SETORES</span><span class="tcard-icon">📊</span></div>
+        <div class="tcard-metric">Educação · Mídia · Finanças · Startups · EUA</div>
+        <p class="tcard-desc">Ciência de dados para empresas de educação, fundos de investimento, previdência, media e startups — incluindo projetos para o mercado americano. Stack GCP em produção.</p>
+        <div class="tcard-tags"><span class="tcard-tag">GCP</span><span class="tcard-tag">Data Science</span><span class="tcard-tag">Investimento</span><span class="tcard-tag">Previdência</span><span class="tcard-tag">EUA</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SOBRE -->
+<section class="sobre">
+  <div class="container">
+    <div class="sobre-grid">
+      <div class="sobre-foto-wrap">
+        <div class="sobre-foto">🧑‍💻</div>
+        <div class="sobre-nome">Letis Pires<span>@letispires</span></div>
+        <div class="sobre-tags">
+          <span class="sobre-tag">Data Science</span>
+          <span class="sobre-tag">GCP</span>
+          <span class="sobre-tag">Machine Learning</span>
+          <span class="sobre-tag">Carreira em Tech</span>
+          <span class="sobre-tag">Hackathon</span>
+          <span class="sobre-tag">IA</span>
+          <span class="sobre-tag">Cloud</span>
+          <span class="sobre-tag">Portfólio</span>
+        </div>
+      </div>
+      <div class="sobre-right">
+        <div class="section-tag">quem é letis</div>
+        <h2 class="section-title" style="margin-bottom:20px">fiz a transição.<br>sei como é<br>do zero.</h2>
+        <p>Vim da engenharia civil e entrei em ciência de dados em <strong>6 meses</strong> — sem bootcamp caro. Só portfólio, networking e muito foco.</p>
+        <p>Intercâmbio de <strong>Inteligência Artificial por 1 ano em Montreal, Canadá</strong>. Trabalhei com dados em projetos reais para mídia, educação, fundos de investimento e startups — incluindo projetos para o mercado americano.</p>
+        <p>Ensinei cloud na Alura, treinei equipes da Suzano em 4 países, ganhei hackathons em Lisboa e Praga, e levei uma startup do hackathon até aceleradora com Demo Day em Dubai.</p>
+        <div class="sobre-cards">
+          <div class="sobre-card"><div class="sobre-card-title">transição em 6 meses</div><div class="sobre-card-desc">Eng. civil → dados. Portfólio + networking, sem bootcamp caro.</div></div>
+          <div class="sobre-card"><div class="sobre-card-title">IA em Montreal, Canadá</div><div class="sobre-card-desc">1 ano de intercâmbio focado em inteligência artificial.</div></div>
+          <div class="sobre-card"><div class="sobre-card-title">5× campeã de hackathon</div><div class="sobre-card-desc">Lisboa, Praga, PL Genesis global. Pitch e design que ganham.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COMO FUNCIONA -->
+<section id="como">
+  <div class="container">
+    <div class="section-tag">como funciona</div>
+    <h2 class="section-title">simples, direto,<br>sem enrolação.</h2>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><div><div class="step-title">Diagnóstico gratuito</div><div class="step-desc">Uma call de 30 min sem compromisso. Entendo onde você está, o que quer alcançar e o que está travando. Essa conversa já tem valor — independente de continuar.</div></div></div>
+      <div class="step"><div class="step-num">02</div><div><div class="step-title">Você decide</div><div class="step-desc">Se fizer sentido pra você e pra mim, começamos. Sem pressão de venda. Trabalho com no máximo 3 pessoas ao mesmo tempo para garantir qualidade.</div></div></div>
+      <div class="step"><div class="step-num">03</div><div><div class="step-title">Definimos o seu objetivo</div><div class="step-desc">Na sessão 0, definimos juntos onde você quer chegar. Primeiro emprego em dados, portfólio forte, promoção — o objetivo é seu, o caminho traçamos juntos.</div></div></div>
+      <div class="step"><div class="step-num">04</div><div><div class="step-title">Sessões semanais + suporte</div><div class="step-desc">1h por semana focada no que importa — planejamento, revisão de projetos, dúvidas técnicas, carreira. WhatsApp aberto entre as sessões para desbloqueios rápidos.</div></div></div>
+      <div class="step"><div class="step-num">05</div><div><div class="step-title">Você entrega, eu comemoro</div><div class="step-desc">Ao final do período, você sai com o objetivo cumprido, portfólio atualizado e próximos passos claros. Resultado concreto, não só aprendizado.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PLANOS -->
+<section class="planos-bg">
+  <div class="container">
+    <div class="section-tag">planos</div>
+    <h2 class="section-title">escolha o<br>seu ritmo.</h2>
+
+    <div class="sprint-card">
+      <div class="sprint-header">
+        <div class="sprint-title">mentoria em dados & tech</div>
+        <div class="sprint-vagas">3 vagas restantes</div>
+      </div>
+
+      <div class="sprint-precos">
+        <div class="sprint-preco-card ativo">
+          <div class="sprint-preco-label">Mensal</div>
+          <div class="sprint-preco-val">R$500 <span>/mês</span></div>
+        </div>
+        <div class="sprint-preco-card">
+          <div class="sprint-preco-label">Programa de 3 meses</div>
+          <div class="sprint-preco-val">R$1.200</div>
+          <div class="sprint-preco-eco">economia de R$300 vs mensal</div>
+        </div>
+      </div>
+
+      <ul class="sprint-items">
+        <li>1:1 semanal de 1 hora focado no seu objetivo</li>
+        <li>Diagnóstico de bloqueios e roadmap personalizado</li>
+        <li>Suporte via WhatsApp entre as sessões</li>
+        <li>Materiais, templates e guias pro seu momento</li>
+        <li>Acesso às conexões de networking da mentora</li>
+        <li>Revisão de currículo e LinkedIn</li>
+      </ul>
+
+      <a href="#agendar" class="sprint-btn">▶ agendar diagnóstico gratuito</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MATERIAIS -->
+<section>
+  <div class="container">
+    <div class="section-tag">materiais incluídos</div>
+    <h2 class="section-title">recursos que você<br>leva pra sempre.</h2>
+    <div class="materiais-grid">
+      <div class="material"><div class="material-tag">NOTION</div><div class="material-title">Template — Sprint de Projeto</div><div class="material-desc">Objetivo, tarefas semanais e tracker gamificado com Pomodoro.</div></div>
+      <div class="material"><div class="material-tag">GUIA</div><div class="material-title">Projeto que impressiona</div><div class="material-desc">O que recrutadores e tech leads realmente olham no portfólio.</div></div>
+      <div class="material"><div class="material-tag">CHECK</div><div class="material-title">Checklist GitHub</div><div class="material-desc">README e estrutura mínima para o projeto ser levado a sério.</div></div>
+      <div class="material"><div class="material-tag">MAP</div><div class="material-title">Roadmap personalizado</div><div class="material-desc">Do seu nível até o objetivo — skills, recursos e ordem certa.</div></div>
+      <div class="material"><div class="material-tag">GCP</div><div class="material-title">Guia de projetos GCP</div><div class="material-desc">BigQuery, Vertex AI, Cloud Functions — stack de produção real.</div></div>
+      <div class="material"><div class="material-tag">DS+</div><div class="material-title">DS com visão de produto</div><div class="material-desc">O que separa um DS técnico de um DS que gera impacto de negócio.</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- DEPOIMENTOS WHATSAPP -->
+<section class="depo-bg">
+  <div class="container">
+    <div class="section-tag">quem já passou por aqui</div>
+    <h2 class="section-title">o que dizem<br>os mentorados.</h2>
+    <div class="depo-grid">
+
+      <div class="wa-card">
+        <div class="wa-header">
+          <div class="wa-avatar">👩</div>
+          <div><div class="wa-contact">Anna</div><div class="wa-status">mentorada · 3 meses</div></div>
+        </div>
+        <div class="wa-body">
+          <div class="wa-bubble">
+            <p>A mentoria mudou completamente como eu organizo meus estudos e projetos.</p>
+            <div class="wa-time">✓✓ 20:14</div>
+          </div>
+          <div class="wa-bubble">
+            <p>Saí com um objetivo claro, um projeto publicado e muito mais confiança para ir atrás do que quero na área de dados.</p>
+            <div class="wa-time">✓✓ 20:15</div>
+          </div>
+          <div class="wa-bubble">
+            <p>Além disso, o suporte no WhatsApp entre as sessões fez toda a diferença nos momentos de dúvida 🙏</p>
+            <div class="wa-time">✓✓ 20:16</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wa-card">
+        <div class="wa-header">
+          <div class="wa-avatar">🧑</div>
+          <div><div class="wa-contact">Mentorado 2</div><div class="wa-status">adicione o depoimento real aqui</div></div>
+        </div>
+        <div class="wa-body">
+          <div class="wa-bubble">
+            <p>Eu tava perdido sobre o que estudar e por onde começar em dados.</p>
+            <div class="wa-time">✓✓ 23:07</div>
+          </div>
+          <div class="wa-bubble">
+            <p>A Letis me ajudou a montar um plano real, com projeto e tudo — em 1 mês eu tinha algo pra mostrar no LinkedIn.</p>
+            <div class="wa-time">✓✓ 23:20</div>
+          </div>
+          <div class="wa-bubble">
+            <p>Ter alguém que já fez o caminho do zero faz toda a diferença 🚀</p>
+            <div class="wa-time">✓✓ 23:21</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<section>
+  <div class="container">
+    <div class="section-tag">dúvidas</div>
+    <h2 class="section-title">perguntas<br>frequentes.</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Serve pra quem ainda não tem experiência em dados?</span>
+          <span class="faq-arrow">▼</span>
+        </div>
+        <div class="faq-a">Sim! É exatamente para esse perfil. A mentoria foi desenhada para quem está no começo — seja vindo de outra área ou recém saindo da faculdade. O objetivo é justamente te dar o caminho mais curto para entrar na área.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Qual a diferença entre o plano mensal e o trimestral?</span>
+          <span class="faq-arrow">▼</span>
+        </div>
+        <div class="faq-a">O mensal foca em entregar um projeto de portfólio em 4 semanas — ideal para quem quer testar a mentoria ou tem um objetivo pontual. O trimestral é para quem quer resultado completo: roadmap, entrevista simulada, LinkedIn revisado e acesso à rede de contatos. Transformação de carreira de verdade.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Como funciona na prática depois que eu entro?</span>
+          <span class="faq-arrow">▼</span>
+        </div>
+        <div class="faq-a">Começamos com uma sessão 0 de diagnóstico onde definimos juntos o seu objetivo. A partir daí, temos 1h por semana com foco claro — planejamento, revisão de código, dúvidas técnicas, carreira. Entre as sessões, o WhatsApp fica aberto para desbloqueios rápidos e o Notion te ajuda a manter o ritmo.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Já fiz curso mas não consigo emprego. Isso me ajuda?</span>
+          <span class="faq-arrow">▼</span>
+        </div>
+        <div class="faq-a">Esse é um dos perfis que mais se beneficia da mentoria. O problema quase sempre não é falta de conhecimento — é falta de portfólio convincente, LinkedIn fraco ou não saber se comunicar com recrutadores. Trabalho exatamente nesses pontos.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Quanto tempo leva pra ver resultado?</span>
+          <span class="faq-arrow">▼</span>
+        </div>
+        <div class="faq-a">No plano mensal, o objetivo é ter um projeto publicado no GitHub ao final das 4 semanas. No trimestral, a meta é o objetivo de carreira definido no início — primeiro emprego, promoção ou mudança de área. Resultado concreto, não só aprendizado.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>E se eu não conseguir o horário da call semanal?</span>
+          <span class="faq-arrow">▼</span>
+        </div>
+        <div class="faq-a">Combinamos os horários juntos com antecedência. Se precisar reagendar pontualmente, sem problema — o WhatsApp garante que o suporte não para mesmo entre as sessões.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CTA -->
+<section id="agendar">
+  <div class="container cta-final">
+    <div class="vagas"><span class="vagas-dot">●</span> 3 vagas disponíveis agora</div>
+    <h2 class="section-title">pronto para o<br>próximo nível?</h2>
+    <p>30 minutos. Sem compromisso. Entendo onde você está e o que precisa acontecer. Essa call já vale por si só.</p>
+    <div class="form-wrap">
+      <div class="form-group"><input type="text" placeholder="Seu nome"></div>
+      <div class="form-group"><input type="text" placeholder="WhatsApp (ex: 48 99999-9999)"></div>
+      <div class="form-group"><input type="email" placeholder="Seu e-mail"></div>
+      <div class="form-group"><textarea rows="4" placeholder="Onde você está hoje e onde quer chegar em dados ou tech..."></textarea></div>
+      <button class="form-submit">▶ agendar diagnóstico gratuito</button>
+      <p class="form-note">Respondo em até 24h pelo WhatsApp.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<footer>
+  <div class="footer-logo">Letis<span>Pires</span></div>
+  <div class="footer-social">
+    <a href="https://instagram.com/letispires" target="_blank" title="Instagram">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    </a>
+    <a href="https://linkedin.com/in/letispires" target="_blank" title="LinkedIn">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+    </a>
+    <a href="https://youtube.com/@letispires" target="_blank" title="YouTube">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+    </a>
+    <a href="https://tiktok.com/@letispires" target="_blank" title="TikTok">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.17 8.17 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
+    </a>
+  </div>
+  <div class="footer-note">© 2025 Letis Pires · mentoria em dados & tech</div>
+</footer>
+
+<script>
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+</script>
+
+</body>
+</html>

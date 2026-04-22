@@ -32,11 +32,9 @@
   .divider { height: 5px; background: linear-gradient(90deg, var(--yellow-mid) 0%, var(--yellow-mid) 20%, var(--brown-mid) 20%, var(--brown-mid) 40%, var(--royal) 40%, var(--royal) 60%, var(--sage) 60%, var(--sage) 80%, var(--yellow-mid) 80%, var(--yellow-mid) 100%); }
 
   /* NAV */
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; row-gap: 10px; background: var(--cream); border-bottom: 3px solid var(--pixel); }
-  .nav-logo { font-family: 'Press Start 2P', monospace; font-size: 11px; color: var(--ink); line-height: 1.5; flex-shrink: 0; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 40px; display: flex; justify-content: flex-start; align-items: center; background: var(--cream); border-bottom: 3px solid var(--pixel); }
+  .nav-logo { font-family: 'Press Start 2P', monospace; font-size: 11px; color: var(--ink); line-height: 1.5; }
   .nav-logo span { color: var(--royal); }
-  .nav-cta { background: var(--royal); color: #fff; padding: 10px 18px; font-family: 'Press Start 2P', monospace; font-size: 8px; line-height: 1.6; text-decoration: none; border: 2px solid var(--pixel); box-shadow: 3px 3px 0 var(--pixel); transition: transform .1s, box-shadow .1s; display: inline-block; text-align: center; }
-  .nav-cta:hover { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--pixel); }
 
   /* HERO */
   .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 120px 40px 60px; max-width: 980px; margin: 0 auto; position: relative; }
@@ -167,7 +165,6 @@
     .sprint-card { padding: 22px 18px; }
     .sprint-precos { grid-template-columns: 1fr; }
     .sprint-preco-val { font-size: 18px; }
-    .nav-cta { padding: 8px 12px; font-size: 7px; }
     footer { flex-direction: column; align-items: flex-start; gap: 12px; }
     .hero-stats { flex-direction: column; }
     .stat { border-right: none; border-bottom: 2px solid var(--pixel); }
@@ -176,11 +173,6 @@
     .step-num { justify-self: start; }
   }
 
-  @media (max-width: 520px) {
-    nav { flex-direction: column; align-items: stretch; }
-    .nav-logo { text-align: center; }
-    .nav-cta { width: 100%; }
-  }
 </style>
 </head>
 <body>
@@ -189,7 +181,6 @@
 
 <nav>
   <div class="nav-logo">Letis<span>Pires</span></div>
-  <a href="https://docs.google.com/forms/d/e/1FAIpQLSdRBOa2_1as5OBZ4aXm70RcVWn8u4Af4VlsOlwR42swjmMYBg/viewform?usp=publish-editor" class="nav-cta" target="_blank" rel="noopener noreferrer">▶ diagnóstico grátis</a>
 </nav>
 
 <!-- HERO -->
